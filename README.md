@@ -34,16 +34,14 @@ The `docker_migration.sh` script provides an all-in-one solution to manage Docke
 
 - **Backup**: Creates backups of all Docker volumes and images.
 - **Restore**: Restores Docker volumes and images from the backup files.
-- **Cleanup**: Removes all Docker Desktop containers, volumes, images, and residual data.
 
 #### Usage
 
 Run the script with one of the following options:
 
 ```bash
-bash docker_migration.sh backup    # To back up all volumes and images
-bash docker_migration.sh restore   # To restore all volumes and images
-bash docker_migration.sh cleanup   # To fully clean up Docker Desktop
+bash docker_migration.sh backup    # To back up all volumes and images (make sure you are in the source environment, e.g., Docker Desktop)
+bash docker_migration.sh restore   # To restore all volumes and images (make sure you are in the destination environment, e.g., Colima)
 ```
 
 ### 2. Backup and Restore Individual Scripts

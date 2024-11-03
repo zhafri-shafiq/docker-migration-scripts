@@ -2,18 +2,51 @@
 
 This repository contains scripts to assist with migrating from Docker Desktop to Colima, including cleanup, backup, and restore processes.
 
+## Requirements
+
+To use these scripts effectively, ensure the following tools are installed:
+
+- **Docker CLI**: Required to interact with Docker containers, images, and volumes. [Docker installation guide](https://docs.docker.com/get-docker/).
+
+- **Colima**: An alternative to Docker Desktop for macOS and Linux, providing a lightweight VM environment for running containers. [Install Colima via Homebrew](https://github.com/abiosoft/colima):
+
+  ```bash
+  brew install colima
+  ```
+
+> **Note**: BusyBox is used within the Docker containers in the scripts, so no additional installation is required on the host system.
+
 ## Scripts
 
+1. **`docker_migration.sh`**: An all-in-one script that combines backup, and restore functions for convenience.
 1. **`backup_volumes.sh`**: Backs up all Docker volumes to `backups/volumes`.
-2. **`restore_volumes.sh`**: Restores all Docker volumes from `backups/volumes`.
-3. **`backup_images.sh`**: Backs up all Docker images to `backups/images/images.tar`.
-4. **`restore_images.sh`**: Restores all Docker images from `backups/images/images.tar`.
-5. **`cleanup_docker_desktop.sh`**: Cleans up Docker Desktop by removing all containers, volumes, images, and residual data.
-6. **`configure_colima_docker.sh`**: Configures Docker CLI to use Colima as the Docker environment.
+1. **`restore_volumes.sh`**: Restores all Docker volumes from `backups/volumes`.
+1. **`backup_images.sh`**: Backs up all Docker images to `backups/images/images.tar`.
+1. **`restore_images.sh`**: Restores all Docker images from `backups/images/images.tar`.
+1. **`cleanup_docker_desktop.sh`**: Cleans up Docker Desktop by removing all containers, volumes, images, and residual data.
+1. **`configure_colima_docker.sh`**: Configures Docker CLI to use Colima as the Docker environment.
 
 ## Usage
 
-### 1. Backup and Restore
+### 1. Docker Migration Script
+
+The `docker_migration.sh` script provides an all-in-one solution to manage Docker data during migration. It supports the following options:
+
+- **Backup**: Creates backups of all Docker volumes and images.
+- **Restore**: Restores Docker volumes and images from the backup files.
+- **Cleanup**: Removes all Docker Desktop containers, volumes, images, and residual data.
+
+#### Usage
+
+Run the script with one of the following options:
+
+```bash
+bash docker_migration.sh backup    # To back up all volumes and images
+bash docker_migration.sh restore   # To restore all volumes and images
+bash docker_migration.sh cleanup   # To fully clean up Docker Desktop
+```
+
+### 2. Backup and Restore Individual Scripts
 
 These scripts allow you to back up Docker volumes and images and restore them in a new environment (e.g., Colima).
 
@@ -41,7 +74,7 @@ These scripts allow you to back up Docker volumes and images and restore them in
   bash restore_images.sh
 ```
 
-### 2. Full Cleanup of Docker Desktop
+### 3. Full Cleanup of Docker Desktop
 
 The `cleanup_docker_desktop.sh` script fully removes Docker Desktop data, including:
 
@@ -67,7 +100,7 @@ To run the full cleanup script, use:
 > - **Irreversible Action**: This operation permanently deletes all Docker Desktop data. Ensure you’ve backed up any necessary volumes or images before running this script.
 > - **macOS Only**: The optional Docker Desktop uninstallation works only for Homebrew-installed versions on macOS.
 
-### 3. Configure Docker CLI to use Colima
+### 4. Configure Docker CLI to use Colima
 
 After migrating to Colima, you may want to configure the Docker CLI to work with Colima instead of Docker Desktop. Use the configure_colima_docker.sh script for this:
 
@@ -81,20 +114,6 @@ This script will:
 - Set the Docker CLI context to Colima.
 - Unset any DOCKER_HOST environment variable that might conflict with Colima.
 - Verify the Docker connection to ensure it’s properly configured.
-
-## Requirements
-
-To use these scripts effectively, ensure the following tools are installed:
-
-- **Docker CLI**: Required to interact with Docker containers, images, and volumes. [Docker installation guide](https://docs.docker.com/get-docker/).
-
-- **Colima**: An alternative to Docker Desktop for macOS and Linux, providing a lightweight VM environment for running containers. [Install Colima via Homebrew](https://github.com/abiosoft/colima):
-
-  ```bash
-  brew install colima
-  ```
-
-> **Note**: BusyBox is used within the Docker containers in the scripts, so no additional installation is required on the host system.
 
 ## Example Workflow
 
